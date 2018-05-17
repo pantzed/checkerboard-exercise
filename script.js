@@ -2,23 +2,21 @@
 document.addEventListener('DOMContentLoaded', function() {
 
     let odd = true;
-    let transparency = 10;
+    let transparency = 1;
 
-    const gradientColoring = function(square, colorA, colorB) {
+    const gradientColoring = function(square) {
         if (odd === true) {
-            alteredColorA = `#${transparency.toString()}${colorA}`;
-            square.style.cssText += ` background-color: ${alteredColorA};`;
+            let alpha = `${parseFloat(transparency).toString()}`;
+            square.style.cssText += ` background-color: rgba(251, 0, 255, ${alpha});`;
             odd = false;
             if (transparency < 98){
-                transparency += 2;
+                transparency -= 0.02;
             }
-            console.log(alteredColorA);
         }
         else {
-            alteredColorB = `#${transparency.toString()}${colorB}`;
-            square.style.cssText += ` background-color: ${alteredColorB};`;
+            let alpha = `${parseFloat(transparency).toString()}`;
+            square.style.cssText += ` background-color: rgba(55, 55, 55, ${alpha});`;
             odd = true;
-            console.log(alteredColorB);
         }
         return square;
     }   
@@ -51,36 +49,36 @@ document.addEventListener('DOMContentLoaded', function() {
         return square;
     }
 
-    const generateSquare = function(randomColors, gradient, gradientColorA, gradientColorB) {
-        randomColors = randomColors || false;
-        gradient = gradient || false;
-        gradientColorA = gradientColorA || undefined;
-        gradientColorB = gradientColorB || undefined;
+    const newSquare = function(color) {
         let square = document.createElement('div');
         square.style.cssText = "width: 11.1%; float: left; padding-bottom: 11.1%;";
-        if (randomColors === true) {
+        if (color === "random") {
             square = randomColoring(square);
         }
-        else if (gradient === true) {
-            square = gradientColoring(square, gradientColorA, gradientColorB);
+        else if (color === "gradient") {
+            square = gradientColoring(square);
         }
-        else {
+        else if (color = "blackAndRed") {
             square = blackAndRedColoring(square);
         }
-        document.body.appendChild(square);
+        return square;
     }
 
-    const buildGrid = function(number, flash){
+    const buildGrid = function(size, color) {
         document.body.innerHTML = "";
-        for (let i=0; i<number; i++) {
-            generateSquare(true, false); 
-        }
-        if (flash === "Y"){
-            setInterval(buildGrid, 100, number);
+        for (let i=0; i<size; i++) {
+            square = newSquare(color);
+            document.body.appendChild(square);
         }
     }
     
-    flash = prompt("Dance Party!? (Y/N)").toUpperCase();
-    buildGrid(90, flash); //arg1: number of grid tiles, arg2: flashing bool
+    let flash = prompt("Dance Party!? (Y/N)").toLowerCase();
+    if (flash === "y") {
+        setInterval(buildGrid, 200, 90, "random");
+    }
+    else {
+        let color = prompt("What colors would you like? (redAndBlack, random, or gradient)").toLowerCase();
+        buildGrid(90, color);
+    }
 
 });
