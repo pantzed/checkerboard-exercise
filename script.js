@@ -67,12 +67,20 @@ document.addEventListener('DOMContentLoaded', function() {
         else {
             square = blackAndRedColoring(square);
         }
-        let newSquare = document.body.appendChild(square);
-        return newSquare;
+        document.body.appendChild(square);
     }
 
-    for (let i=0; i<90; i++) {
-        generateSquare(false, true, "1000ff", "fa00ff");
+    const buildGrid = function(number, flash){
+        document.body.innerHTML = "";
+        for (let i=0; i<number; i++) {
+            generateSquare(true, false); 
+        }
+        if (flash === "Y"){
+            setInterval(buildGrid, 100, number);
+        }
     }
+    
+    flash = prompt("Dance Party!? (Y/N)").toUpperCase();
+    buildGrid(90, flash); //arg1: number of grid tiles, arg2: flashing bool
 
 });
