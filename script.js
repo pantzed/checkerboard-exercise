@@ -2,6 +2,26 @@
 document.addEventListener('DOMContentLoaded', function() {
 
     let odd = true;
+    let transparency = 10;
+
+    const gradientColoring = function(square, colorA, colorB) {
+        if (odd === true) {
+            alteredColorA = `#${transparency.toString()}${colorA}`;
+            square.style.cssText += ` background-color: ${alteredColorA};`;
+            odd = false;
+            if (transparency < 98){
+                transparency += 2;
+            }
+            console.log(alteredColorA);
+        }
+        else {
+            alteredColorB = `#${transparency.toString()}${colorB}`;
+            square.style.cssText += ` background-color: ${alteredColorB};`;
+            odd = true;
+            console.log(alteredColorB);
+        }
+        return square;
+    }   
 
     const randomColoring = function(square) {
         let hexidecimal = '#';
@@ -31,22 +51,28 @@ document.addEventListener('DOMContentLoaded', function() {
         return square;
     }
 
-    const generateSquare = function(randomColors) {
+    const generateSquare = function(randomColors, gradient, gradientColorA, gradientColorB) {
+        randomColors = randomColors || false;
+        gradient = gradient || false;
+        gradientColorA = gradientColorA || undefined;
+        gradientColorB = gradientColorB || undefined;
         let square = document.createElement('div');
         square.style.cssText = "width: 11.1%; float: left; padding-bottom: 11.1%;";
         if (randomColors === true) {
             square = randomColoring(square);
         }
+        else if (gradient === true) {
+            square = gradientColoring(square, gradientColorA, gradientColorB);
+        }
         else {
             square = blackAndRedColoring(square);
         }
         let newSquare = document.body.appendChild(square);
-        console.log(square.style.cssText);
         return newSquare;
     }
 
     for (let i=0; i<90; i++) {
-        generateSquare(true);
+        generateSquare(false, true, "1000ff", "fa00ff");
     }
 
 });
