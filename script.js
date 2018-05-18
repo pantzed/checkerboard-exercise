@@ -82,6 +82,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
     buildGrid(90, "random");
     
+    // Add a single event listener that console logs a square's number when clicked
+    document.body.addEventListener("click", function(event){
+        console.log(event.target.innerHTML);
+    });
+    
+
+
+
     // let flash = prompt("Dance Party!? (Y/N)").toLowerCase();
     // if (flash === "y") {
     //     setInterval(buildGrid, 200, 90, "random");
