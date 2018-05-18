@@ -78,9 +78,10 @@ document.addEventListener('DOMContentLoaded', function() {
             square = addNumberToSquare(square);
             document.body.appendChild(square);
         }
+        number = 0;
     }
 
-    buildGrid(90, "random");
+    // buildGrid(90, "random");
     
     // Add a single event listener that console logs a square's number when clicked
     document.body.addEventListener("click", function(event){
@@ -90,13 +91,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
-    // let flash = prompt("Dance Party!? (Y/N)").toLowerCase();
-    // if (flash === "y") {
-    //     setInterval(buildGrid, 200, 90, "random");
-    // }
-    // else {
-    //     let color = prompt("What colors would you like? (redAndBlack, random, or gradient)").toLowerCase();
-    //     buildGrid(90, color);
-    // }
+    let flash = prompt("Dance Party!? (Y/N)").toLowerCase();
+    if (flash === "y") {
+        setInterval(buildGrid, 200, 90, "random");
+    }
+    else {
+        let color = prompt("What colors would you like? (redAndBlack, random, or gradient)").toLowerCase();
+        buildGrid(90, color);
+    }
 
 });
