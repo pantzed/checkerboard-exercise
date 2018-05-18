@@ -3,6 +3,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
     let odd = true;
     let transparency = 1;
+    let number = 0;
+
+    const addNumberToSquare = function(square) {
+        square.innerHTML = `${number.toString()}`;
+        number++;
+        return square;
+    }
 
     const gradientColoring = function(square) {
         if (odd === true) {
@@ -68,17 +75,20 @@ document.addEventListener('DOMContentLoaded', function() {
         document.body.innerHTML = "";
         for (let i=0; i<size; i++) {
             square = newSquare(color);
+            square = addNumberToSquare(square);
             document.body.appendChild(square);
         }
     }
+
+    buildGrid(90, "random");
     
-    let flash = prompt("Dance Party!? (Y/N)").toLowerCase();
-    if (flash === "y") {
-        setInterval(buildGrid, 200, 90, "random");
-    }
-    else {
-        let color = prompt("What colors would you like? (redAndBlack, random, or gradient)").toLowerCase();
-        buildGrid(90, color);
-    }
+    // let flash = prompt("Dance Party!? (Y/N)").toLowerCase();
+    // if (flash === "y") {
+    //     setInterval(buildGrid, 200, 90, "random");
+    // }
+    // else {
+    //     let color = prompt("What colors would you like? (redAndBlack, random, or gradient)").toLowerCase();
+    //     buildGrid(90, color);
+    // }
 
 });
