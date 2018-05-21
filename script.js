@@ -71,8 +71,30 @@ document.addEventListener('DOMContentLoaded', function() {
         return square;
     }
 
+    const simpleRandomHex = function() {
+        let hexidecimal = '#';
+        let letters = ['A', 'B', 'C', 'D', 'E', 'F'];
+        for (let i=0; i<6; i++) {
+            let addDigit = Math.floor(Math.random() * 2);
+            if (addDigit === 1) {
+                hexidecimal += Math.floor(Math.random() * 10);
+            }
+            else {
+                hexidecimal += letters[Math.floor(Math.random() * 6)];
+            }
+        }
+        return hexidecimal;
+    }
+
+    const giveAllSquaresNewColor = function() {
+        let squares = document.querySelectorAll("div");
+        squares.forEach(function(sq){
+            sq.style.backgroundColor = simpleRandomHex();
+        });
+    }
+
     const buildGrid = function(size, color) {
-        document.body.innerHTML = "";
+        // document.body.innerHTML = "";
         for (let i=0; i<size; i++) {
             square = newSquare(color);
             square = addNumberToSquare(square);
@@ -93,7 +115,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     let flash = prompt("Dance Party!? (Y/N)").toLowerCase();
     if (flash === "y") {
-        setInterval(buildGrid, 200, 90, "random");
+        buildGrid(90, "random");
+        setInterval(giveAllSquaresNewColor, 200,);
     }
     else {
         let color = prompt("What colors would you like? (redAndBlack, random, or gradient)").toLowerCase();
